@@ -22,8 +22,8 @@ struct node* construct_huffman_tree(uint32_t char_freq[]) {
           heap_pop(&new_heap);
           struct node* new_node = (struct node*) calloc(1, sizeof(struct node));
           new_node->freq = min1->freq + min2->freq;
-          new_node->left_son = min1;
-          new_node->right_son = min2;
+          new_node->right_son = min1;
+          new_node->left_son = min2;
           heap_push(&new_heap, new_node);
      }
 
