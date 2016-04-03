@@ -4,9 +4,7 @@
 #include <stdint.h>
 #include "tree.h"
 #include "heap.h"
-
-#define BUFFER_SIZE 1024
-#define CHARACTERS_NUM 256
+#include "params.h"
 
 
 int main(int argc, char *argv[]) {
@@ -32,29 +30,7 @@ int main(int argc, char *argv[]) {
           }
      }
 
-     struct heap new_heap;
-     heap_init(&new_heap);
-     for(size_t i = 0; i < CHARACTERS_NUM; ++i) {
-          struct node* new_node = (struct node*) calloc(1, sizeof(struct node));
-          new_node->value = i;
-          new_node->freq = char_freq[i];
-          heap_push(&new_heap, new_node);
-     }
-
-     while(new_heap.count > 1) {
-          struct node* min1 = heap_front(&new_heap);
-          heap_pop(&new_heap);
-          struct node* min2 = heap_front(&new_heap);
-          heap_pop(&new_heap);
-          struct node* new_node = (struct node*) calloc(1, sizeof(struct node));
-          new_node->freq = min1->freq + min2->freq;
-          new_node->left_son = min1;
-          new_node->right_son = min2;
-          heap_push(&new_heap, new_node);
-     }
-
-     struct node* root = heap_front(&new_heap);
-
+     struct node* root = construct_huffman_tree(char_freq);
      count_huffman_codes(root, huff_code, huff_code_length);
 
      fseek(input, 0, SEEK_SET);
