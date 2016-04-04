@@ -6,12 +6,12 @@
 #include "params.h"
 
 
-struct node* construct_huffman_tree(uint32_t char_freq[]) {
+struct tree_node* construct_huffman_tree(uint32_t char_freq[]) {
      struct heap new_heap;
      heap_init(&new_heap);
      for(size_t i = 0; i < CHARACTERS_NUM; ++i) {
           if(char_freq[i]) {
-               struct node* new_node = (struct node*) calloc(1, sizeof(struct node));
+               struct tree_node* new_node = (struct tree_node*) calloc(1, sizeof(struct tree_node));
                if (!new_node) exit(1);
                new_node->freq = char_freq[i];
                new_node->value = i;
@@ -20,11 +20,11 @@ struct node* construct_huffman_tree(uint32_t char_freq[]) {
      }
 
      while(new_heap.count > 1) {
-          struct node* min1 = heap_front(&new_heap);
+          struct tree_node* min1 = heap_front(&new_heap);
           heap_pop(&new_heap);
-          struct node* min2 = heap_front(&new_heap);
+          struct tree_node* min2 = heap_front(&new_heap);
           heap_pop(&new_heap);
-          struct node* new_node = (struct node*) calloc(1, sizeof(struct node));
+          struct tree_node* new_node = (struct tree_node*) calloc(1, sizeof(struct tree_node));
           if (!new_node) exit(1);
           new_node->freq = min1->freq + min2->freq;
           new_node->right_son = min1;
@@ -32,16 +32,16 @@ struct node* construct_huffman_tree(uint32_t char_freq[]) {
           heap_push(&new_heap, new_node);
      }
 
-     struct node* root = heap_front(&new_heap);
+     struct tree_node* root = heap_front(&new_heap);
      heap_term(&new_heap);
      return root;
 }
 
-void count_huffman_codes(struct node* root, uint32_t huff_code[], uint8_t huff_code_length[]) {
+void count_huffman_codes(struct tree_node* root, uint32_t huff_code[], uint8_t huff_code_length[]) {
      _count_huffman_codes_helper(root, 0, 0, huff_code, huff_code_length);
 }
 
-void _count_huffman_codes_helper(struct node* elem, uint8_t level, uint32_t code,
+void _count_huffman_codes_helper(struct tree_node* elem, uint8_t level, uint32_t code,
                                 uint32_t huff_code[], uint8_t huff_code_length[]) {
      if (elem->left_son == NULL && elem->right_son == NULL) {
           huff_code[elem->value] = code;

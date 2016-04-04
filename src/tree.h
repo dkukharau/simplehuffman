@@ -1,20 +1,21 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef TREE_NODE_H
+#define TREE_NODE_H
+
 
 #include <stdint.h>
 
 
-struct node {
-     struct node* left_son;
-     struct node* right_son;
+struct tree_node {
+     struct tree_node* left_son;
+     struct tree_node* right_son;
      uint32_t freq;
      uint8_t value;
 };
 
-void count_huffman_codes(struct node* root, uint32_t huff_code[], uint8_t huff_code_length[]);
-void _count_huffman_codes_helper(struct node* elem, uint8_t level, uint32_t code,
+void count_huffman_codes(struct tree_node* root, uint32_t huff_code[], uint8_t huff_code_length[]);
+void _count_huffman_codes_helper(struct tree_node* elem, uint8_t level, uint32_t code,
                                  uint32_t huff_code[], uint8_t huff_code_length[]);
-struct node* construct_huffman_tree(uint32_t char_freq[]);
+struct tree_node* construct_huffman_tree(uint32_t char_freq[]);
 
 
-#endif // NODE_H
+#endif // TREE_NODE_H

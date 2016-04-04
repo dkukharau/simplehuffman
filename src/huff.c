@@ -26,7 +26,7 @@ void compress_file(FILE* input, FILE* output) {
           }
      }
 
-     struct node* root = construct_huffman_tree(char_freq);
+     struct tree_node* root = construct_huffman_tree(char_freq);
      count_huffman_codes(root, huff_code, huff_code_length);
 
      fseek(input, 0, SEEK_SET);
@@ -73,8 +73,8 @@ void decompress_file(FILE* input, FILE* output) {
      fread(&former_file_size, sizeof(former_file_size), 1, input);
      fread(char_freq, sizeof(uint32_t), sizeof(char_freq) / sizeof(uint32_t), input);
 
-     struct node* root = construct_huffman_tree(char_freq);
-     struct node* cur_node = root;
+     struct tree_node* root = construct_huffman_tree(char_freq);
+     struct tree_node* cur_node = root;
 
      size_t in_buffer_pos = 0;
 
