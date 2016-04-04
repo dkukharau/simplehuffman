@@ -5,10 +5,10 @@
 
 
 struct node {
-     uint8_t value;
-     uint32_t freq;
      struct node* left_son;
      struct node* right_son;
+     uint32_t freq;
+     uint8_t value;
 };
 
 
