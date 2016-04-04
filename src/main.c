@@ -19,6 +19,19 @@ int main(int argc, char *argv[]) {
           exit(1);
      }
 
+     FILE* input = fopen(argv[1], "rb");
+     FILE* output = fopen(argv[3], "wb");
+
+     if (input == NULL) {
+          perror(argv[1]);
+          exit(1);
+     }
+
+     if (output == NULL) {
+          perror(argv[3]);
+          exit(1);
+     }
+
      uint8_t buffer[BUFFER_SIZE] = {};
      uint8_t output_buffer[BUFFER_SIZE] = {};
      uint32_t char_freq[CHARACTERS_NUM] = {};
@@ -26,13 +39,7 @@ int main(int argc, char *argv[]) {
      uint32_t file_size = 0;
      uint8_t huff_code_length[CHARACTERS_NUM] = {};
 
-     FILE* input = fopen(argv[1], "rb");
-     FILE* output = fopen(argv[3], "wb");
 
-     if (input == NULL || output == NULL) {
-          perror("Error opening file");
-          exit(1);
-     }
 
      if (strcmp(argv[2], "-c") == 0) {
 
