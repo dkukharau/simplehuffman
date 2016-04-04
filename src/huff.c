@@ -58,6 +58,7 @@ void compress_file(FILE* input, FILE* output) {
      }
 
      fwrite(output_buffer, sizeof(uint8_t), in_byte_pos ? in_buffer_pos + 1 : in_buffer_pos, output);
+     release_huffman_tree(root);
 }
 
 
@@ -106,4 +107,5 @@ void decompress_file(FILE* input, FILE* output) {
                }
           }
      }
+     release_huffman_tree(root);
 }

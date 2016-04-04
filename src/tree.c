@@ -37,12 +37,24 @@ struct tree_node* construct_huffman_tree(uint32_t char_freq[]) {
      return root;
 }
 
+void release_huffman_tree(struct tree_node* root) {
+     if (root->left_son != NULL) {
+          release_huffman_tree(root->left_son);
+     }
+     if (root->right_son != NULL) {
+          release_huffman_tree(root->right_son);
+     }
+     free(root);
+}
+
+
+
 void count_huffman_codes(struct tree_node* root, uint32_t huff_code[], uint8_t huff_code_length[]) {
      _count_huffman_codes_helper(root, 0, 0, huff_code, huff_code_length);
 }
 
 void _count_huffman_codes_helper(struct tree_node* elem, uint8_t level, uint32_t code,
-                                uint32_t huff_code[], uint8_t huff_code_length[]) {
+                                 uint32_t huff_code[], uint8_t huff_code_length[]) {
      if (elem->left_son == NULL && elem->right_son == NULL) {
           huff_code[elem->value] = code;
           huff_code_length[elem->value] = level;
