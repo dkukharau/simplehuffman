@@ -94,7 +94,6 @@ void decompress_file(FILE* input, FILE* output) {
                               fwrite(output_buffer, sizeof(uint8_t), BUFFER_SIZE, output);
                               in_buffer_pos = 0;
                          }
-
                          cur_node = root;
                     }
 

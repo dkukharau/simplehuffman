@@ -11,9 +11,10 @@ struct node {
      uint8_t value;
 };
 
-
 void count_huffman_codes(struct node* root, uint32_t huff_code[], uint8_t huff_code_length[]);
-
+void _count_huffman_codes_helper(struct node* elem, uint8_t level, uint32_t code,
+                                 uint32_t huff_code[], uint8_t huff_code_length[]);
 struct node* construct_huffman_tree(uint32_t char_freq[]);
+
 
 #endif // NODE_H
