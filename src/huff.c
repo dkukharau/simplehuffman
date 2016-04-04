@@ -78,7 +78,13 @@ void compress_file(FILE* input, FILE* output) {
                     cur_code >>= written_bits_num;
                     if (in_byte_pos == 8) {
                          if (++in_buffer_pos == BUFFER_SIZE - 1) {
+
                               fwrite(output_buffer, sizeof(uint8_t), BUFFER_SIZE - 1, output);
+                              if (ferror(output)) {
+                                   perror("");
+                                   exit(1);
+                              }
+
                               memset(output_buffer, 0, BUFFER_SIZE);
                               in_buffer_pos = 0;
                          }
