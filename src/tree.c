@@ -12,6 +12,7 @@ struct node* construct_huffman_tree(uint32_t char_freq[]) {
      for(size_t i = 0; i < CHARACTERS_NUM; ++i) {
           if(char_freq[i]) {
                struct node* new_node = (struct node*) calloc(1, sizeof(struct node));
+               if (!new_node) exit(1);
                new_node->freq = char_freq[i];
                new_node->value = i;
                heap_push(&new_heap, new_node);
@@ -24,6 +25,7 @@ struct node* construct_huffman_tree(uint32_t char_freq[]) {
           struct node* min2 = heap_front(&new_heap);
           heap_pop(&new_heap);
           struct node* new_node = (struct node*) calloc(1, sizeof(struct node));
+          if (!new_node) exit(1);
           new_node->freq = min1->freq + min2->freq;
           new_node->right_son = min1;
           new_node->left_son = min2;
