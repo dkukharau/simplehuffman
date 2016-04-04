@@ -4,20 +4,22 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <errno.h>
+#include <time.h>
 #include "tree.h"
 #include "heap.h"
 #include "params.h"
 
 
 int main(int argc, char *argv[]) {
+     clock_t start = clock();
      if (argc != 4 || !(strcmp(argv[2], "-c") == 0 || strcmp(argv[2], "-x") == 0)) {
           fprintf(stderr, "%s\n\n%s\n%s\n", "Incorrect Usage", "Usage:",
                   "huff input [ -c|-x ] output");
           exit(1);
      }
 
-     uint8_t buffer[BUFFER_SIZE] = {};
-     uint8_t output_buffer[BUFFER_SIZE] = {};
+     uint8_t* buffer = calloc(BUFFER_SIZE, sizeof(uint8_t));
+     uint8_t* output_buffer = calloc(BUFFER_SIZE, sizeof(uint8_t));
      uint32_t char_freq[CHARACTERS_NUM] = {};
      uint32_t huff_code[CHARACTERS_NUM] = {};
      uint32_t file_size = 0;
@@ -113,6 +115,12 @@ int main(int argc, char *argv[]) {
 
      fclose(input);
      fclose(output);
+     free(buffer);
+     free(output_buffer);
+
+     clock_t end = clock();
+     float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+     printf ("Your calculations took %f seconds to run\n", seconds);
 
      return 0;
 }
