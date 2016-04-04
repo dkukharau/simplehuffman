@@ -1,10 +1,7 @@
-#include <unistd.h>
 #include <stdlib.h>
 
 #include "heap.h"
 #include "params.h"
-
-#define BASE_SIZE CHARACTERS_NUM
 
 
 void heap_init(struct heap *restrict h)
