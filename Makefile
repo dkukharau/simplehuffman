@@ -1,14 +1,32 @@
-BP=bin
-SP=src
-CFLAGS=-std=c99 -g -O3
+.PHONY: all clean
 
-all : $(BP)/huff
+BUILD_PATH = bin/
+SOURCE_PATH = src/
+CFLAGS = -g -std=c99 -O3
+CC = gcc
+OBJS = main.o tree.o heap.o huff.o
+EXE = huff
 
-$(BP)/huff : $(BP)/main.o $(BP)/tree.o $(BP)/heap.o $(BP)/huff.o
-	gcc $(LDFLAGS) $^ -o $@
+OBJS_PATH = $(addprefix $(BUILD_PATH), $(OBJS))
+EXE_PATH = $(BUILD_PATH)huff
 
-$(BP)/%.o : $(SP)/%.c $(SP)/tree.h $(SP)/heap.h $(SP)/params.h $(SP)/huff.h
-	gcc $(CFLAGS) $< -c -o $@
+all: $(BUILD_PATH) $(EXE_PATH)
 
-clean :
-	rm -f $(BP)/*
+$(BUILD_PATH):
+	mkdir -p $(BUILD_PATH)
+
+$(EXE_PATH): $(OBJS_PATH)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+$(BUILD_PATH)%.o: $(SOURCE_PATH)%.c $(BUILD_PATH)%.d
+	$(CC) $(CFLAGS) $< -c -o $@
+
+$(BUILD_PATH)%.d: $(SOURCE_PATH)%.c
+	$(CC) -MT $(BUILD_PATH)$*.o -MM -MF $@ $<
+
+include $(wildcard $(BUILD_PATH)/*.d)
+
+.PRECIOUS: $(BUILD_PATH)%.d
+
+clean:
+	rm -rf $(BUILD_PATH)
