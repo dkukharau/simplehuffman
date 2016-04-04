@@ -10,7 +10,10 @@ void heap_init(struct heap *restrict h) {
           .count = 0,
           .data = malloc(sizeof(type) * HEAP_BASE_SIZE)
      };
-     if (!h->data) exit(1);
+     if (!h->data) {
+          perror("");
+          exit(1);
+     }
 }
 
 
@@ -20,7 +23,10 @@ void heap_push(struct heap *restrict h, type value) {
      if (h->count == h->size) {
           h->size <<= 1;
           h->data = realloc(h->data, sizeof(type) * h->size);
-          if (!h->data) exit(1);
+          if (!h->data) {
+               perror("");
+               exit(1);
+          }
      }
 
      for(index = h->count++; index; index = parent) {

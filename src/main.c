@@ -17,26 +17,34 @@ int main(int argc, char *argv[]) {
      FILE* input = fopen(argv[1], "rb");
      FILE* output = fopen(argv[3], "wb");
 
-     if (input == NULL) {
+     if (!input) {
           perror(argv[1]);
           exit(1);
      }
 
-     if (output == NULL) {
+     if (!output) {
           perror(argv[3]);
           exit(1);
      }
 
+
      if (strcmp(argv[2], "-c") == 0) {
           compress_file(input, output);
      }
-
      else {
           decompress_file(input, output);
      }
 
-     fclose(input);
-     fclose(output);
+
+     if (fclose(input)) {
+          perror(argv[1]);
+          exit(1);
+     }
+
+     if (fclose(output)) {
+          perror(argv[3]);
+          exit(1);
+     }
 
      return 0;
 }
