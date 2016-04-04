@@ -7,6 +7,8 @@
 #include "params.h"
 #include "huff.h"
 
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
 
 void compress_file(FILE* input, FILE* output) {
 
@@ -40,19 +42,23 @@ void compress_file(FILE* input, FILE* output) {
      while(!feof(input)) {
           size_t bytes_num = fread(input_buffer, sizeof(uint8_t), BUFFER_SIZE, input);
           for(size_t i = 0; i < bytes_num; ++i) {
-               output_buffer[in_buffer_pos] |= ((~(~0 << (8 - in_byte_pos)) & huff_code[input_buffer[i]]) << in_byte_pos);
-
-               if (huff_code_length[input_buffer[i]] >= 8 - in_byte_pos) {
-                    if (++in_buffer_pos == BUFFER_SIZE - 1) {
-                         fwrite(output_buffer, sizeof(uint8_t), BUFFER_SIZE - 1, output);
-                         memset(output_buffer, 0, BUFFER_SIZE);
-                         in_buffer_pos = 0;
+               uint32_t cur_code_length = huff_code_length[input_buffer[i]];
+               uint32_t cur_code = huff_code[input_buffer[i]];
+               while (cur_code_length > 0) {
+                    uint32_t trailing_bits_num = 8 - in_byte_pos;
+                    output_buffer[in_buffer_pos] |= ((~(0xFFFF << trailing_bits_num)) & cur_code) << in_byte_pos;
+                    uint32_t written_bits_num = MIN(cur_code_length, trailing_bits_num);
+                    cur_code_length -= written_bits_num;
+                    in_byte_pos += written_bits_num;
+                    cur_code >>= written_bits_num;
+                    if (in_byte_pos == 8) {
+                         if (++in_buffer_pos == BUFFER_SIZE - 1) {
+                              fwrite(output_buffer, sizeof(uint8_t), BUFFER_SIZE - 1, output);
+                              memset(output_buffer, 0, BUFFER_SIZE);
+                              in_buffer_pos = 0;
+                         }
+                         in_byte_pos = 0;
                     }
-                    output_buffer[in_buffer_pos] |= huff_code[input_buffer[i]] >> (8 - in_byte_pos);
-                    in_byte_pos = huff_code_length[input_buffer[i]] - (8 - in_byte_pos);
-               }
-               else {
-                    in_byte_pos += huff_code_length[input_buffer[i]];
                }
           }
      }
