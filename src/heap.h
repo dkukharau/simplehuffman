@@ -16,9 +16,9 @@ struct heap {
         uint32_t count;
 };
 
-void heap_init(struct heap *restrict h);
-void heap_push(struct heap *restrict h, type value);
-void heap_pop(struct heap *restrict h);
+void heap_init(struct heap* h);
+void heap_push(struct heap* h, type value);
+void heap_pop(struct heap* h);
 
 
 #define heap_front(h) (*(h)->data)

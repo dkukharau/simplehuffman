@@ -5,7 +5,7 @@
 #include "params.h"
 
 
-void heap_init(struct heap *restrict h) {
+void heap_init(struct heap* h) {
      *h = (struct heap) {
           .size = HEAP_BASE_SIZE,
           .count = 0,
@@ -18,7 +18,7 @@ void heap_init(struct heap *restrict h) {
 }
 
 
-void heap_push(struct heap *restrict h, type value) {
+void heap_push(struct heap* h, type value) {
      uint32_t index, parent;
 
      if (h->count == h->size) {
@@ -39,7 +39,7 @@ void heap_push(struct heap *restrict h, type value) {
 }
 
 
-void heap_pop(struct heap *restrict h) {
+void heap_pop(struct heap* h) {
      uint32_t index, swap, other;
 
      type temp = h->data[--h->count];
