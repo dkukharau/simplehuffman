@@ -15,7 +15,7 @@ void compress_file(FILE* input, FILE* output) {
      uint32_t char_freq[CHARACTERS_NUM] = {};
 
      uint32_t huff_code[CHARACTERS_NUM] = {};
-     uint8_t huff_code_length[CHARACTERS_NUM] = {};
+     uint32_t huff_code_length[CHARACTERS_NUM] = {};
      uint32_t file_size = 0;
 
      while(!feof(input)) {
