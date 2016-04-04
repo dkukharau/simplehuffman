@@ -148,6 +148,7 @@ void decompress_file(FILE* input, FILE* output) {
                               break;
                          }
                          if (++in_buffer_pos == BUFFER_SIZE) {
+
                               fwrite(output_buffer, sizeof(uint8_t), BUFFER_SIZE, output);
                               if (ferror(output)) {
                                    perror("");
