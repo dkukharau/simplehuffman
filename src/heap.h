@@ -20,5 +20,3 @@ void heap_pop(struct heap *restrict h);
 
 // Frees the allocated memory
 #define heap_term(h) (free((h)->data))
-
-void heapify(type data[restrict], unsigned int count);

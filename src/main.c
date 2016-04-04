@@ -11,8 +11,6 @@
 
 int main(int argc, char *argv[]) {
 
-     clock_t start = clock();
-
      if (argc != 4 || !(strcmp(argv[2], "-c") == 0 || strcmp(argv[2], "-x") == 0)) {
           fprintf(stderr, "%s\n\n%s\n%s\n", "Incorrect Usage", "Usage:",
                   "huff input_file [ -c|-x ] output_file");
@@ -130,10 +128,6 @@ int main(int argc, char *argv[]) {
 
      fclose(input);
      fclose(output);
-
-     clock_t end = clock();
-     float seconds = (float)(end - start) / CLOCKS_PER_SEC;
-     printf ("Your calculations took %f seconds to run\n", seconds);
 
      return 0;
 }
