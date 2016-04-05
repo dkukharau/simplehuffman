@@ -13,8 +13,11 @@
 
 /**
  *  @brief Entry point for the project
+ *
  *  Usage:
+ *
  *  huff input_file [ -c|-x ] output_file
+ *
  */
 int main(int argc, char *argv[]) {
 
