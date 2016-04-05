@@ -1,3 +1,8 @@
+/**
+ *  @file main.c
+ *  @brief This file contains the entry point of the SimpleHuffman project
+ *  @author Daniel Kukharau
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,6 +11,11 @@
 #include "huff.h"
 
 
+/**
+ *  @brief Entry point for the project
+ *  Usage:
+ *  huff input_file [ -c|-x ] output_file
+ */
 int main(int argc, char *argv[]) {
 
      if (argc != 4 || !(strcmp(argv[2], "-c") == 0 || strcmp(argv[2], "-x") == 0)) {

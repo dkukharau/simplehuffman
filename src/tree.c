@@ -1,3 +1,9 @@
+/**
+ *  @file tree.c
+ *  @brief This header file contains all function definitions needed to work with
+ *         a Huffman tree
+ *  @author Daniel Kukharau
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>

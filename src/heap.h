@@ -1,10 +1,9 @@
 /**
- *   @file heap.h
- *   @brief This header file contains heap struct definition as well
- *          as all functions declarations needed to work with heap
- *   @author Daniel Kukharau
+ *  @file heap.h
+ *  @brief This header file contains heap data structure definition as well
+ *         as all function declarations needed to work with heap
+ *  @author Daniel Kukharau
  */
-
 #ifndef HEAP_H
 #define HEAP_H
 
@@ -12,7 +11,7 @@
 #include "tree.h"
 
 /**
- *  @brief Defines data type used by heap
+ *  @brief Defines a data type used by heap
  */
 typedef struct tree_node* type;
 
@@ -27,7 +26,7 @@ typedef struct tree_node* type;
 #define HEAP_BASE_SIZE CHARACTERS_NUM
 
 /**
- *  @brief Heap struct definition
+ *  @brief Heap data structure definition
  */
 struct heap {
         type *data; /**< Pointer to the top of the heap */

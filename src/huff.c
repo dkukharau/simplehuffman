@@ -1,3 +1,9 @@
+/**
+ *  @file huff.c
+ *  @brief This file contains all function definitions needed
+ *         to compress/decompress files using Huffman coding
+ *  @author Daniel Kukharau
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,6 +13,10 @@
 #include "params.h"
 #include "huff.h"
 
+/**
+ *  @brief Find a minimum of two values
+ *  @note Could be moved out of this file in next version
+ */
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 

@@ -1,3 +1,9 @@
+/**
+ *  @file heap.c
+ *  @brief This file contains heap all function definitions
+ *         needed to work with heap data structure
+ *  @author Daniel Kukharau
+ */
 #include <stdlib.h>
 #include <stdio.h>
 
