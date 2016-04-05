@@ -1,6 +1,6 @@
 # SimpleHuffman
 
-![Logo](huffman-coding-tree-small.png)
+![Logo](logo.png)
 
 Usage:  
 huff input_file [ -c|-x ] output_file
