@@ -15,7 +15,7 @@
  *  @param input_file Pointer to the file to compress
  *  @param output_file Pointer to a file to write compressed data to
  */
-Void compress_file(FILE* input_file, FILE* output_file);
+void compress_file(FILE* input_file, FILE* output_file);
 void decompress_file(FILE* input_file, FILE* output_file);
 
 
