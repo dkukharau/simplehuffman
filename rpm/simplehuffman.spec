@@ -10,6 +10,9 @@ Source:         %{name}-%{version}.tar
 
 BuildRequires: gcc, make
 
+%description
+Fast archiver based on Huffman coding algorithm
+
 %prep
 %setup
 
