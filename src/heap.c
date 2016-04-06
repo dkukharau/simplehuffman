@@ -1,6 +1,6 @@
 /**
  *  @file heap.c
- *  @brief This file contains heap all function definitions
+ *  @brief This file contains all function definitions
  *         needed to work with heap data structure
  *  @author Daniel Kukharau
  */
