@@ -34,4 +34,6 @@ deploy:
             code: |
                 yum -y install ruby
                 gem install package_cloud
-                package_cloud push dkukharau/simplehuffman *
+        - script:
+            name: push to packagecloud
+            code: package_cloud push dkukharau/simplehuffman *
