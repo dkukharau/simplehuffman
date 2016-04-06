@@ -3,8 +3,10 @@ box: fedora:23
 dev:
     steps:
         - script:
-            name: install gcc and make
-            code: yum -y install gcc make
+            name: install build dependencies
+            code: |
+                yum -y install yum-utils
+                yum-builddep -y rpm/${WERCKER_APPLICATION_NAME}.spec
         - script:
             name: compile project
             code: make
@@ -14,7 +16,9 @@ build:
     steps:
         - script:
             name: install build dependencies
-            code: yum -y install gcc make rpmdevtools
+            code: |
+                yum -y install yum-utils rpmdevtools
+                yum-builddep -y rpm/${WERCKER_APPLICATION_NAME}.spec
         - script:
             name: build rpm package
             code: |
