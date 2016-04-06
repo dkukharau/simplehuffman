@@ -19,12 +19,14 @@ build:
             name: build rpm package
             code: |
                 BUILD_NAME="${WERCKER_APPLICATION_NAME}-${WERCKER_GIT_COMMIT}"
-                mkdir -p ../"$BUILD_NAME"
-                cp -rf * ../"$BUILD_NAME"
-                cd ../
-                tar -cvf "$BUILD_NAME".tar "$BUILD_NAME"
+                ARCH=`rpmbuild -E '%_arch'`
+                RPMDIR=`rpmbuild -E '%_rpmdir'`
+                mkdir -p /tmp/"$BUILD_NAME"
+                cp -rf * /tmp/"$BUILD_NAME"
+                cd /tmp/"$BUILD_NAME"
+                tar -cvf $BUILD_NAME".tar "$BUILD_NAME"
                 rpmbuild -D "%git_commit ${WERCKER_GIT_COMMIT}" -tb "${BUILD_NAME}.tar"
-                cp "${HOME}/rpmbuild/RPMS/x86_64/${BUILD_NAME}-1.x86_64.rpm" "$WERCKER_OUTPUT_DIR"
+                cp "${RPMDIR}/${ARCH}/${BUILD_NAME}-1.${ARCH}.rpm" "$WERCKER_OUTPUT_DIR"
 
 
 deploy:
@@ -38,5 +40,4 @@ deploy:
             name: push to packagecloud
             code: |
                 echo "{\"url\":\"https://packagecloud.io\",\"token\":\"${PACKAGECLOUD_API_TOKEN}\"}" > .packagecloud
-                LANG=en_US.utf8 package_cloud push --config=.packagecloud "$PACKAGECLOUD_REPO" \
-                                "${WERCKER_APPLICATION_NAME}-${WERCKER_GIT_COMMIT}-1.x86_64.rpm"
+                for rpm in *.rpm ; do LANG=en_US.utf8 package_cloud push --config=.packagecloud "$PACKAGECLOUD_REPO" "$rpm" ; done
