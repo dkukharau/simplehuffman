@@ -18,18 +18,15 @@ struct tree_node* construct_huffman_tree(uint32_t char_freq[]) {
      struct heap new_heap;
      heap_init(&new_heap);
      for(size_t i = 0; i < CHARACTERS_NUM; ++i) {
-          if(char_freq[i]) {
-
-               struct tree_node* new_node = (struct tree_node*) calloc(1, sizeof(struct tree_node));
-               if (!new_node) {
-                    perror("");
-                    exit(1);
-               }
-
-               new_node->freq = char_freq[i];
-               new_node->value = i;
-               heap_push(&new_heap, new_node);
+          struct tree_node* new_node = (struct tree_node*) calloc(1, sizeof(struct tree_node));
+          if (!new_node) {
+               perror("");
+               exit(1);
           }
+
+          new_node->freq = char_freq[i];
+          new_node->value = i;
+          heap_push(&new_heap, new_node);
      }
 
      while(new_heap.count > 1) {
