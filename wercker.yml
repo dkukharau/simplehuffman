@@ -22,13 +22,13 @@ build:
         - script:
             name: build rpm package
             code: |
-                BUILD_NAME="${WERCKER_APPLICATION_NAME}-${WERCKER_GIT_COMMIT}"
+                BUILD_NAME="${WERCKER_APPLICATION_NAME}-${WERCKER_MAIN_PIPELINE_STARTED}"
                 RPMDIR=`rpmbuild -E '%_rpmdir'`
                 mkdir -p "/tmp/${BUILD_NAME}"
                 cp -rf * "/tmp/${BUILD_NAME}"
                 cd /tmp/
                 tar -cvf "${BUILD_NAME}.tar" "$BUILD_NAME"
-                rpmbuild -D "%git_commit ${WERCKER_GIT_COMMIT}" -tb "${BUILD_NAME}.tar"
+                rpmbuild -D "%timestamp ${WERCKER_MAIN_PIPELINE_STARTED}" -tb "${BUILD_NAME}.tar"
                 cp "$RPMDIR"/*/"$BUILD_NAME"*.rpm "$WERCKER_OUTPUT_DIR"
 
 
