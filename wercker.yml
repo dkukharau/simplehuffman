@@ -18,7 +18,7 @@ build:
         - script:
             name: build rpm package
             code: |
-                BUILD_NAME="simplehuffman-${WERCKER_GIT_COMMIT}"
+                BUILD_NAME="${WERCKER_APPLICATION_NAME}-${WERCKER_GIT_COMMIT}"
                 mkdir -p ../"$BUILD_NAME"
                 cp -rf * ../"$BUILD_NAME"
                 cd ../
@@ -36,4 +36,7 @@ deploy:
                 gem install package_cloud
         - script:
             name: push to packagecloud
-            code: package_cloud push dkukharau/simplehuffman *
+            code: |
+                echo "{\"url\":\"https://packagecloud.io\",\"token\":\"${PACKAGECLOUD_API_TOKEN}\"}" > .packagecloud
+                LANG=en_US.utf8 package_cloud push --config=.packagecloud "$PACKAGECLOUD_REPO" \
+                                "${WERCKER_APPLICATION_NAME}-${WERCKER_GIT_COMMIT}-1.x86_64.rpm"
