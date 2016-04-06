@@ -1,6 +1,6 @@
 Name:           simplehuffman
 Summary:        Simple implementation of the Huffman coding
-Version:        0.99999
+Version:        %git_commit
 Release:        1
 License:        BSD
 Group:          Archiving/Compression

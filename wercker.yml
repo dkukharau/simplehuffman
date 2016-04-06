@@ -1,0 +1,37 @@
+box: fedora:23
+
+dev:
+    steps:
+        - script:
+            name: install gcc and make
+            code: yum -y install gcc make
+        - script:
+            name: compile project
+            code: make
+        - internal/shell
+
+build:
+    steps:
+        - script:
+            name: install build dependencies
+            code: yum -y install gcc make rpmdevtools
+        - script:
+            name: build rpm package
+            code: |
+                BUILD_NAME="simplehuffman-${WERCKER_GIT_COMMIT}"
+                mkdir -p ../"$BUILD_NAME"
+                cp -rf * ../"$BUILD_NAME"
+                cd ../
+                tar -cvf "$BUILD_NAME".tar "$BUILD_NAME"
+                rpmbuild -D "%git_commit ${WERCKER_GIT_COMMIT}" -tb "${BUILD_NAME}.tar"
+                cp "${HOME}/rpmbuild/RPMS/x86_64/${BUILD_NAME}-1.x86_64.rpm" "$WERCKER_OUTPUT_DIR"
+
+
+deploy:
+    packagecloud:
+        - script:
+            name: install package_cloud client
+            code: |
+                yum -y install ruby
+                gem install package_cloud
+                package_cloud push dkukharau/simplehuffman *
