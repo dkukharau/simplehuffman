@@ -26,7 +26,7 @@ build:
                 if [ $VERSION != "`cat ${WERCKER_CACHE_DIR}/VERSION 2> /dev/null`" ]
                     then rm -f ${WERCKER_CACHE_DIR}/RELEASE_NUM ; cp -f VERSION ${WERCKER_CACHE_DIR}/VERSION
                 fi
-                (( RELEASE_NUM = `cat ${WERCKER_CACHE_DIR}/RELEASE_NUM 2> /dev/null` + 1 ))
+                (( RELEASE_NUM = `cat ${WERCKER_CACHE_DIR}/RELEASE_NUM 2> /dev/null` + 1))
                 echo $RELEASE_NUM > ${WERCKER_CACHE_DIR}/RELEASE_NUM
                 BUILD_NAME="${WERCKER_APPLICATION_NAME}-${VERSION}"
                 RPMDIR=`rpmbuild -E '%_rpmdir'`
