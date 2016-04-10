@@ -1,7 +1,7 @@
 Name:           simplehuffman
 Summary:        Simple implementation of the Huffman coding
-Version:        %timestamp
-Release:        1
+Version:        %_version
+Release:        %{_release_num}.%_git_commit
 License:        BSD
 Group:          Archiving/Compression
 URL:            http://github.com/dkukharau/simplehuffman
