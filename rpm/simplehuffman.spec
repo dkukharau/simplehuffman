@@ -32,5 +32,3 @@ rm -rf %{buildroot}
 %{_bindir}/*
 
 %changelog
-* Tue Apr 5 2016 Daniel Kukharau <daniel.kukharau@gmail.com> 0.99999-1
-- Initial spec
