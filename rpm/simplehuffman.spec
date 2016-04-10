@@ -20,12 +20,7 @@ Fast archiver based on Huffman coding algorithm
 make
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_bindir}
-cp -f bin/huff %{buildroot}%{_bindir}/huff
-
-%clean
-rm -rf %{buildroot}
+%makeinstall
 
 %files
 %defattr(-,root,root,-)

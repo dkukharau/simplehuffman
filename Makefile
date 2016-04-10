@@ -1,16 +1,28 @@
 .PHONY: all clean
 
-BUILD_PATH = bin/
-SOURCE_PATH = src/
+prefix = /usr/
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin/
+srcdir = src/
+
+DESTDIR = /
+
+SOURCE_PATH = $(srcdir)
+BUILD_PATH = obj/
 CFLAGS = -g -std=c99 -O3
 CC = gcc
 OBJS = main.o tree.o heap.o huff.o
 EXE = huff
 
+
 OBJS_PATH = $(addprefix $(BUILD_PATH), $(OBJS))
 EXE_PATH = $(BUILD_PATH)huff
 
 all: $(BUILD_PATH) $(EXE_PATH)
+
+install: all
+	mkdir -p $(DESTDIR)$(bindir)
+	cp $(EXE_PATH) $(DESTDIR)$(bindir)
 
 $(BUILD_PATH):
 	mkdir -p $(BUILD_PATH)
